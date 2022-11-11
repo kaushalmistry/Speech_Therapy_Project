@@ -24,7 +24,7 @@ Speech_Therapy_App.cpp
     This is the main application source file.
     Contains the code to display the form.
 
-Form1.h
+Main_Form.h
     Contains the implementation of your form class and InitializeComponent() function.
 
 AssemblyInfo.cpp
