@@ -1,6 +1,7 @@
 #pragma once
 #include "HMM_Utilities.h"
-
+int recordCount = 0;
+char newWord[20] = "";
 
 namespace Speech_Therapy_App {
 
@@ -46,6 +47,7 @@ namespace Speech_Therapy_App {
 	private: System::Windows::Forms::Button^  train_hmm;
 	private: System::Windows::Forms::Label^  warning_on_utt_count;
 	private: System::Windows::Forms::ProgressBar^  progressBar1;
+	private: System::Windows::Forms::Label^  training_warning_label;
 
 	protected: 
 
@@ -73,6 +75,7 @@ namespace Speech_Therapy_App {
 			this->train_hmm = (gcnew System::Windows::Forms::Button());
 			this->warning_on_utt_count = (gcnew System::Windows::Forms::Label());
 			this->progressBar1 = (gcnew System::Windows::Forms::ProgressBar());
+			this->training_warning_label = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// new_word_label2
@@ -137,6 +140,7 @@ namespace Speech_Therapy_App {
 			this->train_hmm->TabIndex = 6;
 			this->train_hmm->Text = L"Train model with newly added word";
 			this->train_hmm->UseVisualStyleBackColor = true;
+			this->train_hmm->Click += gcnew System::EventHandler(this, &Livetraining::train_hmm_Click);
 			// 
 			// warning_on_utt_count
 			// 
@@ -154,11 +158,21 @@ namespace Speech_Therapy_App {
 			this->progressBar1->TabIndex = 8;
 			this->progressBar1->Click += gcnew System::EventHandler(this, &Livetraining::progressBar1_Click);
 			// 
+			// training_warning_label
+			// 
+			this->training_warning_label->AutoSize = true;
+			this->training_warning_label->Location = System::Drawing::Point(44, 254);
+			this->training_warning_label->Name = L"training_warning_label";
+			this->training_warning_label->Size = System::Drawing::Size(42, 13);
+			this->training_warning_label->TabIndex = 9;
+			this->training_warning_label->Text = L"Dummy";
+			// 
 			// Livetraining
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(375, 353);
+			this->Controls->Add(this->training_warning_label);
 			this->Controls->Add(this->progressBar1);
 			this->Controls->Add(this->warning_on_utt_count);
 			this->Controls->Add(this->train_hmm);
@@ -180,19 +194,40 @@ namespace Speech_Therapy_App {
 	private: System::Void progressBar1_Click(System::Object^  sender, System::EventArgs^  e) {
 			 }
 private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-			char newWord[20];
 
-			sprintf(newWord, "%s", gcnew String(this->new_word_textBox->Text));
+			liveRecording(recordCount);
 
-			appendNewWord(newWord);
-			int recordCount = 1;
+			recordCount++;
+			this->count_label->Text = Convert::ToString(recordCount);
 
-			while (recordCount <= 3) {
-				liveRecording(recordCount);
+		 }
+private: System::Void train_hmm_Click(System::Object^  sender, System::EventArgs^  e) {
 
-				this->count_label->Text = Convert::ToString(recordCount);
+			if (this->new_word_textBox->Text != "30") {
+				this->training_warning_label->Text = "You must record 30 utterence before training the model";
+			} else {
+				
+				sprintf(newWord, "%s", gcnew String(this->new_word_textBox->Text));
+				appendNewWord(newWord);
 
-				recordCount++;
+				this->progressBar1->Increment(1);
+
+				generateCodeBook();
+
+				this->progressBar1->Increment(10);
+
+				generateCodeBook();
+
+				this->progressBar1->Increment(25);
+
+				readWords();
+
+				this->progressBar1->Increment(10);
+
+
+				trainHMM();
+
+				this->progressBar1->Increment(54);
 			}
 
 		 }

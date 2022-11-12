@@ -1,0 +1,4 @@
+ToDo
+
+=> Add dynamic word selection in UI
+=> Check conflict with the noOfWords and currentWords variables

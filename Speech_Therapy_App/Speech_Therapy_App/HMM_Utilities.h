@@ -125,6 +125,25 @@ long double maxRecognisedProb = 0;
 int recognisedWordIndex = 1;
 int curNumberOfWords = 1;
 
+
+void readWords() {
+    FILE* wordFile = fopen("files/words.txt", "r");
+
+    char word[10];
+    int count = 0;
+
+    while (!feof(wordFile)) {
+        fscanf(wordFile, "%s", words[count]);
+        count++;
+    }
+
+    noOfWords = count;
+    curNumberOfWords = count;
+
+    fclose(wordFile);
+}
+
+
 /**
  * Tokhura distance between the code book vector and the vector from universe
  */
@@ -346,7 +365,7 @@ void generateUniverse()
     }
 
     // Looping through 3 words
-	for (int word = 1; word <= 3; word++)
+	for (int word = 1; word <= noOfWords; word++)
 	{
 		// Looping through 8 utterances
 		for (int utterance = 1; utterance <= 30; utterance++)
@@ -1261,7 +1280,7 @@ void trainHMM()
     int utterance, iteration;
     int type, word;
 
-    for (word = 1; word <= 3; word++)
+    for (word = 1; word <= noOfWords; word++)
     {
         for (iteration = 1; iteration <= 2; iteration++)
         {
@@ -1349,7 +1368,7 @@ int testingFile()
     generateObservationSequence(inputFile);
 
 
-    for (iteration = 1; iteration <= 3; iteration++)
+    for (iteration = 1; iteration <= noOfWords; iteration++)
     {
         readFinalModel(iteration);
         forwardProcedure();
@@ -1383,7 +1402,7 @@ void testHMM()
     int word, utterance;
 
     int probcount = 0;
-    for (word = 1; word <= 3; word++)
+    for (word = 1; word <= noOfWords; word++)
     {
         for (utterance = 31; utterance <= 40; utterance++)
         {
@@ -1519,22 +1538,7 @@ void dumpLiveDataForRecords() {
 }
 
 
-void readWords() {
-    FILE* wordFile = fopen("files/words.txt", "r");
 
-    char word[10];
-    int count = 0;
-
-    while (!feof(wordFile)) {
-        fscanf(wordFile, "%s", words[count]);
-        count++;
-    }
-
-    noOfWords = count;
-    curNumberOfWords = count;
-
-    fclose(wordFile);
-}
 
 void testPrint() {
     printf("\nTesting done!\n");
@@ -1546,7 +1550,7 @@ void testPrint() {
 
 void appendNewWord(char* newWord) {
     FILE* wordFilePtr = fopen("files/words.txt", "a");
-    fprintf(wordFilePtr, "%s\n", newWord);
+    fprintf(wordFilePtr, "\n%s", newWord);
     fclose(wordFilePtr);
 }
 
@@ -1577,13 +1581,14 @@ void liveRecording(int utt) {
 
 int console_main()
 {
+    readWords();
     // The below function is to generate the universe with the data
     generateUniverse();
     // The below function generates the code book with the data in the universe file
-    // generateCodeBook();
+    generateCodeBook();
 
     // Trains the HMM model with the data
-    // trainHMM();
+    trainHMM();
 
     // Tests the HMM model against all the test files
     // testHMM();
@@ -1594,7 +1599,7 @@ int console_main()
 
 	// printf("\nFilename : %s\n", inputFile);
 
-	// testingFile();
+	testingFile();
 
     // Live testing for the data
     // liveTesting();

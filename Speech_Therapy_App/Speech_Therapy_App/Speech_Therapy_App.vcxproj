@@ -89,6 +89,7 @@
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="Live training.cpp" />
+    <ClCompile Include="Performance_Sheet.cpp" />
     <ClCompile Include="Speech_Therapy_App.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -100,6 +101,9 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Main_Form.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="Performance_Sheet.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="resource.h" />
@@ -115,6 +119,9 @@
     <EmbeddedResource Include="Main_Form.resX">
       <DependentUpon>Main_Form.h</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Performance_Sheet.resx">
+      <DependentUpon>Performance_Sheet.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

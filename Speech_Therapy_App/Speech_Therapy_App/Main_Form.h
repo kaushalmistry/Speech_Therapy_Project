@@ -1,5 +1,6 @@
 #pragma once
 #include "Live training.h"
+#include "Performance_Sheet.h"
 
 namespace Speech_Therapy_App {
 
@@ -54,6 +55,7 @@ namespace Speech_Therapy_App {
 
 	private: System::Windows::Forms::Button^  progress_button;
 	private: System::Windows::Forms::Button^  train_button;
+	private: System::Windows::Forms::Label^  placeholder_label;
 
 	protected: 
 
@@ -86,13 +88,14 @@ namespace Speech_Therapy_App {
 			this->listen_warning = (gcnew System::Windows::Forms::Label());
 			this->progress_button = (gcnew System::Windows::Forms::Button());
 			this->train_button = (gcnew System::Windows::Forms::Button());
+			this->placeholder_label = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// listBox1
 			// 
 			this->listBox1->FormattingEnabled = true;
 			this->listBox1->Items->AddRange(gcnew cli::array< System::Object^  >(3) {L"glasses", L"chair", L"away"});
-			this->listBox1->Location = System::Drawing::Point(22, 67);
+			this->listBox1->Location = System::Drawing::Point(22, 58);
 			this->listBox1->Name = L"listBox1";
 			this->listBox1->Size = System::Drawing::Size(159, 225);
 			this->listBox1->TabIndex = 0;
@@ -131,7 +134,7 @@ namespace Speech_Therapy_App {
 			// question_label
 			// 
 			this->question_label->AutoSize = true;
-			this->question_label->Location = System::Drawing::Point(287, 186);
+			this->question_label->Location = System::Drawing::Point(258, 184);
 			this->question_label->Name = L"question_label";
 			this->question_label->Size = System::Drawing::Size(124, 13);
 			this->question_label->TabIndex = 4;
@@ -217,10 +220,11 @@ namespace Speech_Therapy_App {
 			this->progress_button->TabIndex = 14;
 			this->progress_button->Text = L"See your progress";
 			this->progress_button->UseVisualStyleBackColor = true;
+			this->progress_button->Click += gcnew System::EventHandler(this, &Main_Form::progress_button_Click);
 			// 
 			// train_button
 			// 
-			this->train_button->Location = System::Drawing::Point(70, 298);
+			this->train_button->Location = System::Drawing::Point(54, 298);
 			this->train_button->Name = L"train_button";
 			this->train_button->Size = System::Drawing::Size(103, 23);
 			this->train_button->TabIndex = 15;
@@ -228,12 +232,21 @@ namespace Speech_Therapy_App {
 			this->train_button->UseVisualStyleBackColor = true;
 			this->train_button->Click += gcnew System::EventHandler(this, &Main_Form::train_button_Click);
 			// 
+			// placeholder_label
+			// 
+			this->placeholder_label->AutoSize = true;
+			this->placeholder_label->Location = System::Drawing::Point(535, 250);
+			this->placeholder_label->Name = L"placeholder_label";
+			this->placeholder_label->Size = System::Drawing::Size(42, 13);
+			this->placeholder_label->TabIndex = 16;
+			this->placeholder_label->Text = L"glasses";
+			// 
 			// Main_Form
 			// 
 			this->AccessibleRole = System::Windows::Forms::AccessibleRole::MenuBar;
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(858, 325);
+			this->ClientSize = System::Drawing::Size(824, 325);
 			this->Controls->Add(this->train_button);
 			this->Controls->Add(this->progress_button);
 			this->Controls->Add(this->listen_warning);
@@ -249,6 +262,7 @@ namespace Speech_Therapy_App {
 			this->Controls->Add(this->speak_button);
 			this->Controls->Add(this->text_box_title);
 			this->Controls->Add(this->listBox1);
+			this->Controls->Add(this->placeholder_label);
 			this->Name = L"Main_Form";
 			this->Text = L"Main_Form";
 			this->ResumeLayout(false);
@@ -262,8 +276,8 @@ namespace Speech_Therapy_App {
 			 }
 
 private: System::Void listBox1_SelectedIndexChanged_1(System::Object^  sender, System::EventArgs^  e) {
-			 		// testPrint();
 				this->word_label->Text = "Selected word: " + this->listBox1->SelectedItem->ToString();
+				this->placeholder_label->Text = this->listBox1->SelectedItem->ToString();
 				this->feedback_label->Text = "";
 
 		 }
@@ -314,6 +328,13 @@ private: System::Void chart1_Click(System::Object^  sender, System::EventArgs^  
 private: System::Void train_button_Click(System::Object^  sender, System::EventArgs^  e) {
 			Livetraining^ addingNewWord = gcnew Livetraining();
 			addingNewWord->Show();
+		 }
+private: System::Void progress_button_Click(System::Object^  sender, System::EventArgs^  e) {
+			// SetValueForWord = this->word_label->Text;
+			Performance_Sheet^ pSheet = gcnew Performance_Sheet(this->placeholder_label->Text);
+			// Performance_Sheet^ pSheet = gcnew Performance_Sheet();
+			// pSheet->wordForPerformanceSheet = this->listBox1->SelectedItem->ToString();
+			pSheet->Show();
 		 }
 };
 }
