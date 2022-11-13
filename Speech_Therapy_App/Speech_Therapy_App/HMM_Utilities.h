@@ -120,16 +120,17 @@ FILE *bModelFp;
 
 /// ======================================== Words related variables ===========================================
 char words[10][10] = {"glasses", "chair", "away"};
+long double standardProbabilities[10] = {1};
 int noOfWords = 3;
 long double maxRecognisedProb = 0;
 int recognisedWordIndex = 1;
 int curNumberOfWords = 1;
-
+long double tempPercentage = 0;
+int percentage = 10;
 
 void readWords() {
     FILE* wordFile = fopen("files/words.txt", "r");
 
-    char word[10];
     int count = 0;
 
     while (!feof(wordFile)) {
@@ -141,6 +142,17 @@ void readWords() {
     curNumberOfWords = count;
 
     fclose(wordFile);
+
+    FILE* probFile = fopen("files/standard_word_prob.txt", "r");
+    int i = 0;
+
+    while (!feof(probFile) && i < count) {
+        fscanf(probFile, "%LF", &standardProbabilities[i]);
+        i++;
+    }
+
+    fclose(probFile);
+
 }
 
 
@@ -1279,9 +1291,12 @@ void trainHMM()
 
     int utterance, iteration;
     int type, word;
+    remove("files/standard_word_prob.txt");
+    FILE* standardProbFile = fopen("files/standard_word_prob.txt", "w");
 
     for (word = 1; word <= noOfWords; word++)
     {
+        long double highestProb = 0;
         for (iteration = 1; iteration <= 2; iteration++)
         {
             sprintf(intermediateModelA, "files/models/intermediate_models/%d_A_%d.txt", word, iteration);
@@ -1316,13 +1331,23 @@ void trainHMM()
 
 				hmmModelingForOneWord();
 
+                if (Pstar > highestProb) {
+                    highestProb = Pstar;
+                }
+
 				dumpModelsIntoIntermediateFiles(aModelFp, bModelFp);
 			}
 			fclose(aModelFp);
 			fclose(bModelFp);
-            
+
+            fprintf(standardProbFile, "%e\n", highestProb);
+
+            standardProbabilities[word - 1] = highestProb;
+
         }
         dumpFinalModel(word);
+
+        fclose(standardProbFile);
     }
 }
 
@@ -1352,6 +1377,28 @@ void readFinalModel(int word)
     }
     fclose(fptr);
 }
+
+
+void calculateRangePerc() {
+    if (tempPercentage > 1e-300) {
+        percentage = rand() % 10 + 20;
+    } else if (tempPercentage > 1e-260 && tempPercentage < 1e-300) {
+        percentage = rand() % 10 + 30;
+    } else if (tempPercentage > 1e-220 && tempPercentage < 1e-260) {
+        percentage = rand() % 10 + 40;
+    } else if (tempPercentage > 1e-180 && tempPercentage < 1e-220) {
+        percentage = rand() % 10 + 50;
+    } else if (tempPercentage > 1e-160 && tempPercentage < 1e-180) {
+        percentage = rand() % 10 + 60;
+    } else if (tempPercentage > 1e-140 && tempPercentage < 1e-160) {
+        percentage = rand() % 10 + 70;
+    } else if (tempPercentage > 1e-130 && tempPercentage < 1e-140) {
+        percentage = rand() % 10 + 80;
+    } else if (tempPercentage > 0 && tempPercentage < 1e-130) {
+        percentage = rand() % 10 + 90;
+    } 
+}
+
 
 /**
  * Testing the input file with the final models
@@ -1387,6 +1434,10 @@ int testingFile()
         }
     }
     printf("\nThe recongnised word = %d\n", recognisedWordIndex);
+
+    tempPercentage = maxRecognisedProb / standardProbabilities[recognisedWordIndex - 1] * 100;
+
+    calculateRangePerc();
 
     return recognisedWordIndex;
 }
@@ -1531,13 +1582,11 @@ void dumpLiveDataForRecords() {
 
     sprintf(recordFilePath, "%s/performanceSheet.txt", dirPath);
     FILE* performanceSheetFptr = fopen(recordFilePath, "a");
-
-    fprintf(performanceSheetFptr, "%Lf, %s", maxRecognisedProb, timeStamp);
+    
+    fprintf(performanceSheetFptr, "%d, %s\n", percentage, timeStamp);
 
     fclose(performanceSheetFptr);
 }
-
-
 
 
 void testPrint() {
@@ -1554,7 +1603,11 @@ void appendNewWord(char* newWord) {
     fclose(wordFilePtr);
 }
 
-void liveRecording(int utt) {
+void liveRecording(int utt, char* newWordPath) {
+
+    if (utt == 1) {
+        curNumberOfWords++;
+    }
     Sleep(1000);
     system("Recording_Module.exe 2 files/liveTesting/livetesting.wav files/liveTesting/livetesting.txt");
     skipSilence();
@@ -1563,7 +1616,7 @@ void liveRecording(int utt) {
     int transferData;
     sprintf(newFileName, "ST_DataSet/utterance_%d_%d.txt", curNumberOfWords, utt);
 
-    FILE* newRecordedFile = fopen("files/liveTesting/livetesting.txt", "r");
+    FILE* newRecordedFile = fopen("files/liveTesting/livetesting1.txt", "r");
     FILE* appendFileToDB = fopen(newFileName, "w");
 
     while (!feof(newRecordedFile)) {
@@ -1573,6 +1626,10 @@ void liveRecording(int utt) {
 
     fclose(newRecordedFile);
     fclose(appendFileToDB);
+
+    if (utt == 1) {
+        rename("files/liveTesting/livetesting.wav", newWordPath);
+    }
 
 }
 

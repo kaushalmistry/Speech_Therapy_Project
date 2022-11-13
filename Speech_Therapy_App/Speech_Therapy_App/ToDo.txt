@@ -1,4 +1,3 @@
 ToDo
 
-=> Add dynamic word selection in UI
-=> Check conflict with the noOfWords and currentWords variables
+=> Update the listen wav files as per the speaker

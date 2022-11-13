@@ -1,6 +1,6 @@
 #pragma once
 #include "HMM_Utilities.h"
-int recordCount = 0;
+int recordCount = 1;
 char newWord[20] = "";
 
 namespace Speech_Therapy_App {
@@ -66,7 +66,6 @@ namespace Speech_Therapy_App {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Livetraining::typeid));
 			this->new_word_label2 = (gcnew System::Windows::Forms::Label());
 			this->new_input_label2 = (gcnew System::Windows::Forms::Label());
 			this->new_word_textBox = (gcnew System::Windows::Forms::TextBox());
@@ -85,7 +84,7 @@ namespace Speech_Therapy_App {
 			this->new_word_label2->BackColor = System::Drawing::Color::Transparent;
 			this->new_word_label2->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->new_word_label2->ForeColor = System::Drawing::SystemColors::Menu;
+			this->new_word_label2->ForeColor = System::Drawing::SystemColors::InfoText;
 			this->new_word_label2->Location = System::Drawing::Point(118, 20);
 			this->new_word_label2->Name = L"new_word_label2";
 			this->new_word_label2->Size = System::Drawing::Size(161, 23);
@@ -108,7 +107,7 @@ namespace Speech_Therapy_App {
 			// 
 			// new_word_textBox
 			// 
-			this->new_word_textBox->BackColor = System::Drawing::Color::PaleTurquoise;
+			this->new_word_textBox->BackColor = System::Drawing::Color::MistyRose;
 			this->new_word_textBox->Location = System::Drawing::Point(227, 72);
 			this->new_word_textBox->Name = L"new_word_textBox";
 			this->new_word_textBox->Size = System::Drawing::Size(122, 20);
@@ -116,7 +115,7 @@ namespace Speech_Therapy_App {
 			// 
 			// button1
 			// 
-			this->button1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"button1.BackgroundImage")));
+			this->button1->BackColor = System::Drawing::Color::SeaShell;
 			this->button1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->button1->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
@@ -125,7 +124,7 @@ namespace Speech_Therapy_App {
 			this->button1->Size = System::Drawing::Size(166, 31);
 			this->button1->TabIndex = 3;
 			this->button1->Text = L"Record 30 utterances";
-			this->button1->UseVisualStyleBackColor = true;
+			this->button1->UseVisualStyleBackColor = false;
 			this->button1->Click += gcnew System::EventHandler(this, &Livetraining::button1_Click);
 			// 
 			// utterance_count_label
@@ -154,7 +153,7 @@ namespace Speech_Therapy_App {
 			// 
 			// train_hmm
 			// 
-			this->train_hmm->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"train_hmm.BackgroundImage")));
+			this->train_hmm->BackColor = System::Drawing::Color::SeaShell;
 			this->train_hmm->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->train_hmm->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
@@ -163,7 +162,7 @@ namespace Speech_Therapy_App {
 			this->train_hmm->Size = System::Drawing::Size(251, 32);
 			this->train_hmm->TabIndex = 6;
 			this->train_hmm->Text = L"Train model with newly added word";
-			this->train_hmm->UseVisualStyleBackColor = true;
+			this->train_hmm->UseVisualStyleBackColor = false;
 			this->train_hmm->Click += gcnew System::EventHandler(this, &Livetraining::train_hmm_Click);
 			// 
 			// warning_on_utt_count
@@ -176,7 +175,8 @@ namespace Speech_Therapy_App {
 			// 
 			// progressBar1
 			// 
-			this->progressBar1->Location = System::Drawing::Point(20, 306);
+			this->progressBar1->BackColor = System::Drawing::Color::SeaShell;
+			this->progressBar1->Location = System::Drawing::Point(20, 298);
 			this->progressBar1->Name = L"progressBar1";
 			this->progressBar1->Size = System::Drawing::Size(329, 23);
 			this->progressBar1->TabIndex = 8;
@@ -198,7 +198,7 @@ namespace Speech_Therapy_App {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"$this.BackgroundImage")));
+			this->BackColor = System::Drawing::Color::RosyBrown;
 			this->ClientSize = System::Drawing::Size(375, 353);
 			this->Controls->Add(this->training_warning_label);
 			this->Controls->Add(this->progressBar1);
@@ -223,23 +223,26 @@ namespace Speech_Therapy_App {
 	private: System::Void progressBar1_Click(System::Object^  sender, System::EventArgs^  e) {
 			 }
 private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+			
+			char listenPath[100];
+			sprintf(listenPath, "files/listen/%s.wav", gcnew String(this->new_word_textBox->Text));
 
-			liveRecording(recordCount);
-
-			recordCount++;
+			liveRecording(recordCount, listenPath);
 			this->count_label->Text = Convert::ToString(recordCount);
+			recordCount++;
 
 		 }
 private: System::Void train_hmm_Click(System::Object^  sender, System::EventArgs^  e) {
 
-			if (this->new_word_textBox->Text != "30") {
-				this->training_warning_label->Text = "You must record 30 utterence before training the model";
-			} else {
+			if (recordCount > 30) {
 				
+				this->training_warning_label->Text = "";
+				
+				this->progressBar1->Increment(1);
 				sprintf(newWord, "%s", gcnew String(this->new_word_textBox->Text));
 				appendNewWord(newWord);
 
-				this->progressBar1->Increment(1);
+				this->progressBar1->Increment(5);
 
 				generateCodeBook();
 
@@ -257,6 +260,9 @@ private: System::Void train_hmm_Click(System::Object^  sender, System::EventArgs
 				trainHMM();
 
 				this->progressBar1->Increment(54);
+			} else {
+				this->training_warning_label->Text = "You must record 30 utterence before training the model";
+
 			}
 
 		 }

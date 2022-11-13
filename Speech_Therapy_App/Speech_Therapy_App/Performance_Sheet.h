@@ -84,7 +84,7 @@ namespace Speech_Therapy_App {
 			this->performance_label->BackColor = System::Drawing::Color::Transparent;
 			this->performance_label->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->performance_label->Location = System::Drawing::Point(152, 6);
+			this->performance_label->Location = System::Drawing::Point(12, 9);
 			this->performance_label->Name = L"performance_label";
 			this->performance_label->Size = System::Drawing::Size(159, 23);
 			this->performance_label->TabIndex = 0;
@@ -137,7 +137,7 @@ namespace Speech_Therapy_App {
 
 #pragma endregion
 
-	private: System::Void chart1_Click(System::Object^  sender, System::EventArgs^  e) {
+private: System::Void chart1_Click(System::Object^  sender, System::EventArgs^  e) {
 			 }
 private: System::Void Performance_Sheet_Load(System::Object^  sender, System::EventArgs^  e) {
 			char pSheet[100];
@@ -145,20 +145,21 @@ private: System::Void Performance_Sheet_Load(System::Object^  sender, System::Ev
 
 			sprintf(pSheet, "files/PastRecords/%s/performanceSheet.txt", gcnew String(this->data_passing_label->Text));
 
-			this->performance_label->Text = gcnew String(pSheet);
-
-
-			// // FILE* fp = fopen("files/PastRecords/away/performanceSheet.txt", "r");
 			FILE* fp = fopen(pSheet, "r");
-			int x = 1;
-			float pb;
-			while (fgets(buf, 100, fp)) {
-				sscanf(buf, "%f", &pb);
-				chart1->Series[0]->Points->AddXY(x, pb);
-				x++;
-			}
 
-			fclose(fp);
+			if (fp == NULL) {
+				this->performance_label->Text = L"You do not have any past records yet.";
+			} else {
+				int x = 1;
+				int pb;
+				while (fgets(buf, 100, fp)) {
+					sscanf(buf, "%d", &pb);
+					chart1->Series[0]->Points->AddXY(x, pb);
+					x++;
+				}
+
+				fclose(fp);
+			}
 		 }
 };
 }
