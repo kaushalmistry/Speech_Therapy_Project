@@ -1396,7 +1396,9 @@ void calculateRangePerc() {
         percentage = rand() % 10 + 80;
     } else if (tempPercentage > 0 && tempPercentage < 1e-130) {
         percentage = rand() % 10 + 90;
-    } 
+    } else {
+        percentage = 10;
+    }
 }
 
 
