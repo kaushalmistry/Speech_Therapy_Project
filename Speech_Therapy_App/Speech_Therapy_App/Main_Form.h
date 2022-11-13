@@ -56,6 +56,7 @@ namespace Speech_Therapy_App {
 	private: System::Windows::Forms::Button^  progress_button;
 	private: System::Windows::Forms::Button^  train_button;
 	private: System::Windows::Forms::Label^  placeholder_label;
+	private: System::Windows::Forms::Label^  label2;
 
 	protected: 
 
@@ -73,6 +74,7 @@ namespace Speech_Therapy_App {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Main_Form::typeid));
 			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
 			this->text_box_title = (gcnew System::Windows::Forms::Label());
 			this->speak_button = (gcnew System::Windows::Forms::Button());
@@ -89,72 +91,94 @@ namespace Speech_Therapy_App {
 			this->progress_button = (gcnew System::Windows::Forms::Button());
 			this->train_button = (gcnew System::Windows::Forms::Button());
 			this->placeholder_label = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// listBox1
 			// 
+			this->listBox1->BackColor = System::Drawing::Color::LightCyan;
+			this->listBox1->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
 			this->listBox1->FormattingEnabled = true;
+			this->listBox1->ItemHeight = 26;
 			this->listBox1->Items->AddRange(gcnew cli::array< System::Object^  >(3) {L"glasses", L"chair", L"away"});
-			this->listBox1->Location = System::Drawing::Point(22, 58);
+			this->listBox1->Location = System::Drawing::Point(81, 119);
+			this->listBox1->Margin = System::Windows::Forms::Padding(13, 3, 3, 3);
 			this->listBox1->Name = L"listBox1";
-			this->listBox1->Size = System::Drawing::Size(159, 225);
+			this->listBox1->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->listBox1->Size = System::Drawing::Size(111, 134);
 			this->listBox1->TabIndex = 0;
 			this->listBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &Main_Form::listBox1_SelectedIndexChanged_1);
 			// 
 			// text_box_title
 			// 
 			this->text_box_title->AutoSize = true;
-			this->text_box_title->Location = System::Drawing::Point(22, 33);
+			this->text_box_title->BackColor = System::Drawing::Color::Transparent;
+			this->text_box_title->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->text_box_title->ForeColor = System::Drawing::Color::Bisque;
+			this->text_box_title->Location = System::Drawing::Point(60, 64);
 			this->text_box_title->Name = L"text_box_title";
-			this->text_box_title->Size = System::Drawing::Size(151, 13);
+			this->text_box_title->Size = System::Drawing::Size(152, 46);
 			this->text_box_title->TabIndex = 1;
-			this->text_box_title->Text = L"Lets play with the words below";
+			this->text_box_title->Text = L"Let\'s play with the \r\n    words below";
 			this->text_box_title->Click += gcnew System::EventHandler(this, &Main_Form::label1_Click);
 			// 
 			// speak_button
 			// 
-			this->speak_button->Location = System::Drawing::Point(351, 137);
+			this->speak_button->Image = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"speak_button.Image")));
+			this->speak_button->Location = System::Drawing::Point(379, 161);
 			this->speak_button->Name = L"speak_button";
-			this->speak_button->Size = System::Drawing::Size(75, 23);
+			this->speak_button->Size = System::Drawing::Size(38, 39);
 			this->speak_button->TabIndex = 2;
-			this->speak_button->Text = L"Speak";
 			this->speak_button->UseVisualStyleBackColor = true;
 			this->speak_button->Click += gcnew System::EventHandler(this, &Main_Form::speak_button_Click);
 			// 
 			// listen_button
 			// 
-			this->listen_button->Location = System::Drawing::Point(352, 74);
+			this->listen_button->BackColor = System::Drawing::Color::Transparent;
+			this->listen_button->Image = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"listen_button.Image")));
+			this->listen_button->Location = System::Drawing::Point(386, 98);
 			this->listen_button->Name = L"listen_button";
-			this->listen_button->Size = System::Drawing::Size(75, 23);
+			this->listen_button->Size = System::Drawing::Size(28, 27);
 			this->listen_button->TabIndex = 3;
-			this->listen_button->Text = L"Listen";
-			this->listen_button->UseVisualStyleBackColor = true;
+			this->listen_button->UseVisualStyleBackColor = false;
 			this->listen_button->Click += gcnew System::EventHandler(this, &Main_Form::listen_button_Click);
 			// 
 			// question_label
 			// 
 			this->question_label->AutoSize = true;
-			this->question_label->Location = System::Drawing::Point(258, 184);
+			this->question_label->BackColor = System::Drawing::Color::Transparent;
+			this->question_label->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->question_label->Location = System::Drawing::Point(253, 213);
 			this->question_label->Name = L"question_label";
-			this->question_label->Size = System::Drawing::Size(124, 13);
+			this->question_label->Size = System::Drawing::Size(185, 20);
 			this->question_label->TabIndex = 4;
 			this->question_label->Text = L"Are you trying to speak _";
 			// 
 			// yes_button
 			// 
-			this->yes_button->Location = System::Drawing::Point(255, 215);
+			this->yes_button->BackColor = System::Drawing::Color::SeaShell;
+			this->yes_button->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"yes_button.BackgroundImage")));
+			this->yes_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->yes_button->Location = System::Drawing::Point(280, 249);
 			this->yes_button->Name = L"yes_button";
-			this->yes_button->Size = System::Drawing::Size(75, 23);
+			this->yes_button->Size = System::Drawing::Size(73, 25);
 			this->yes_button->TabIndex = 5;
 			this->yes_button->Text = L"Yes";
-			this->yes_button->UseVisualStyleBackColor = true;
+			this->yes_button->UseVisualStyleBackColor = false;
 			this->yes_button->Click += gcnew System::EventHandler(this, &Main_Form::yes_button_Click);
 			// 
 			// no_button
 			// 
-			this->no_button->Location = System::Drawing::Point(351, 215);
+			this->no_button->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"no_button.BackgroundImage")));
+			this->no_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->no_button->Location = System::Drawing::Point(375, 250);
 			this->no_button->Name = L"no_button";
-			this->no_button->Size = System::Drawing::Size(75, 23);
+			this->no_button->Size = System::Drawing::Size(75, 24);
 			this->no_button->TabIndex = 6;
 			this->no_button->Text = L"No";
 			this->no_button->UseVisualStyleBackColor = true;
@@ -163,36 +187,51 @@ namespace Speech_Therapy_App {
 			// feedback_label
 			// 
 			this->feedback_label->AutoSize = true;
-			this->feedback_label->Location = System::Drawing::Point(300, 250);
+			this->feedback_label->BackColor = System::Drawing::Color::Transparent;
+			this->feedback_label->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 11, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->feedback_label->Location = System::Drawing::Point(232, 289);
 			this->feedback_label->Name = L"feedback_label";
-			this->feedback_label->Size = System::Drawing::Size(0, 13);
+			this->feedback_label->Size = System::Drawing::Size(0, 20);
 			this->feedback_label->TabIndex = 7;
 			this->feedback_label->Click += gcnew System::EventHandler(this, &Main_Form::label1_Click_1);
 			// 
 			// word_label
 			// 
 			this->word_label->AutoSize = true;
-			this->word_label->Location = System::Drawing::Point(275, 33);
+			this->word_label->BackColor = System::Drawing::Color::Transparent;
+			this->word_label->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 11, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->word_label->ForeColor = System::Drawing::SystemColors::ControlDarkDark;
+			this->word_label->Location = System::Drawing::Point(276, 59);
 			this->word_label->Name = L"word_label";
-			this->word_label->Size = System::Drawing::Size(107, 13);
+			this->word_label->Size = System::Drawing::Size(163, 21);
 			this->word_label->TabIndex = 8;
 			this->word_label->Text = L"Selected word: None";
 			// 
 			// speak_label
 			// 
 			this->speak_label->AutoSize = true;
-			this->speak_label->Location = System::Drawing::Point(238, 143);
+			this->speak_label->BackColor = System::Drawing::Color::Transparent;
+			this->speak_label->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->speak_label->ForeColor = System::Drawing::SystemColors::InactiveCaptionText;
+			this->speak_label->Location = System::Drawing::Point(282, 167);
 			this->speak_label->Name = L"speak_label";
-			this->speak_label->Size = System::Drawing::Size(38, 13);
+			this->speak_label->Size = System::Drawing::Size(55, 23);
 			this->speak_label->TabIndex = 9;
 			this->speak_label->Text = L"Speak";
 			// 
 			// listen_label
 			// 
 			this->listen_label->AutoSize = true;
-			this->listen_label->Location = System::Drawing::Point(238, 77);
+			this->listen_label->BackColor = System::Drawing::Color::Transparent;
+			this->listen_label->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->listen_label->ForeColor = System::Drawing::SystemColors::InactiveCaptionText;
+			this->listen_label->Location = System::Drawing::Point(281, 98);
 			this->listen_label->Name = L"listen_label";
-			this->listen_label->Size = System::Drawing::Size(35, 13);
+			this->listen_label->Size = System::Drawing::Size(54, 23);
 			this->listen_label->TabIndex = 10;
 			this->listen_label->Text = L"Listen";
 			// 
@@ -207,16 +246,24 @@ namespace Speech_Therapy_App {
 			// listen_warning
 			// 
 			this->listen_warning->AutoSize = true;
-			this->listen_warning->Location = System::Drawing::Point(309, 104);
+			this->listen_warning->BackColor = System::Drawing::Color::Transparent;
+			this->listen_warning->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->listen_warning->ForeColor = System::Drawing::Color::Red;
+			this->listen_warning->Location = System::Drawing::Point(307, 132);
 			this->listen_warning->Name = L"listen_warning";
-			this->listen_warning->Size = System::Drawing::Size(0, 13);
+			this->listen_warning->Size = System::Drawing::Size(0, 18);
 			this->listen_warning->TabIndex = 12;
 			// 
 			// progress_button
 			// 
-			this->progress_button->Location = System::Drawing::Point(290, 289);
+			this->progress_button->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"progress_button.BackgroundImage")));
+			this->progress_button->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->progress_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->progress_button->Location = System::Drawing::Point(306, 319);
 			this->progress_button->Name = L"progress_button";
-			this->progress_button->Size = System::Drawing::Size(104, 23);
+			this->progress_button->Size = System::Drawing::Size(125, 34);
 			this->progress_button->TabIndex = 14;
 			this->progress_button->Text = L"See your progress";
 			this->progress_button->UseVisualStyleBackColor = true;
@@ -224,29 +271,51 @@ namespace Speech_Therapy_App {
 			// 
 			// train_button
 			// 
-			this->train_button->Location = System::Drawing::Point(54, 298);
+			this->train_button->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"train_button.BackgroundImage")));
+			this->train_button->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->train_button->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->train_button->Location = System::Drawing::Point(81, 319);
 			this->train_button->Name = L"train_button";
-			this->train_button->Size = System::Drawing::Size(103, 23);
+			this->train_button->Padding = System::Windows::Forms::Padding(0, 0, 0, 2);
+			this->train_button->Size = System::Drawing::Size(116, 34);
 			this->train_button->TabIndex = 15;
-			this->train_button->Text = L"Add new word";
+			this->train_button->Text = L"Add New Word";
 			this->train_button->UseVisualStyleBackColor = true;
 			this->train_button->Click += gcnew System::EventHandler(this, &Main_Form::train_button_Click);
 			// 
 			// placeholder_label
 			// 
 			this->placeholder_label->AutoSize = true;
-			this->placeholder_label->Location = System::Drawing::Point(535, 250);
+			this->placeholder_label->Location = System::Drawing::Point(112, 213);
 			this->placeholder_label->Name = L"placeholder_label";
 			this->placeholder_label->Size = System::Drawing::Size(42, 13);
 			this->placeholder_label->TabIndex = 16;
 			this->placeholder_label->Text = L"glasses";
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->BackColor = System::Drawing::Color::Transparent;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 14, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->label2->ForeColor = System::Drawing::Color::Bisque;
+			this->label2->Location = System::Drawing::Point(119, 9);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(319, 27);
+			this->label2->TabIndex = 17;
+			this->label2->Text = L"Welcome To Your Training Home!";
+			this->label2->TextAlign = System::Drawing::ContentAlignment::TopCenter;
 			// 
 			// Main_Form
 			// 
 			this->AccessibleRole = System::Windows::Forms::AccessibleRole::MenuBar;
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(824, 325);
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"$this.BackgroundImage")));
+			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
+			this->ClientSize = System::Drawing::Size(547, 365);
+			this->Controls->Add(this->label2);
 			this->Controls->Add(this->train_button);
 			this->Controls->Add(this->progress_button);
 			this->Controls->Add(this->listen_warning);
@@ -263,8 +332,10 @@ namespace Speech_Therapy_App {
 			this->Controls->Add(this->text_box_title);
 			this->Controls->Add(this->listBox1);
 			this->Controls->Add(this->placeholder_label);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^  >(resources->GetObject(L"$this.Icon")));
 			this->Name = L"Main_Form";
-			this->Text = L"Main_Form";
+			this->Text = L"Home Page";
+			this->Load += gcnew System::EventHandler(this, &Main_Form::Main_Form_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -335,6 +406,8 @@ private: System::Void progress_button_Click(System::Object^  sender, System::Eve
 			// Performance_Sheet^ pSheet = gcnew Performance_Sheet();
 			// pSheet->wordForPerformanceSheet = this->listBox1->SelectedItem->ToString();
 			pSheet->Show();
+		 }
+private: System::Void Main_Form_Load(System::Object^  sender, System::EventArgs^  e) {
 		 }
 };
 }

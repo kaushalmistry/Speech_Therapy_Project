@@ -66,6 +66,7 @@ namespace Speech_Therapy_App {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Livetraining::typeid));
 			this->new_word_label2 = (gcnew System::Windows::Forms::Label());
 			this->new_input_label2 = (gcnew System::Windows::Forms::Label());
 			this->new_word_textBox = (gcnew System::Windows::Forms::TextBox());
@@ -81,62 +82,85 @@ namespace Speech_Therapy_App {
 			// new_word_label2
 			// 
 			this->new_word_label2->AutoSize = true;
-			this->new_word_label2->Location = System::Drawing::Point(127, 20);
+			this->new_word_label2->BackColor = System::Drawing::Color::Transparent;
+			this->new_word_label2->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->new_word_label2->ForeColor = System::Drawing::SystemColors::Menu;
+			this->new_word_label2->Location = System::Drawing::Point(118, 20);
 			this->new_word_label2->Name = L"new_word_label2";
-			this->new_word_label2->Size = System::Drawing::Size(104, 13);
+			this->new_word_label2->Size = System::Drawing::Size(161, 23);
 			this->new_word_label2->TabIndex = 0;
-			this->new_word_label2->Text = L"Adding a new word! ";
+			this->new_word_label2->Text = L"Adding New Word! ";
 			this->new_word_label2->Click += gcnew System::EventHandler(this, &Livetraining::new_word_label2_Click);
 			// 
 			// new_input_label2
 			// 
 			this->new_input_label2->AutoSize = true;
-			this->new_input_label2->Location = System::Drawing::Point(24, 69);
+			this->new_input_label2->BackColor = System::Drawing::Color::Transparent;
+			this->new_input_label2->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->new_input_label2->ForeColor = System::Drawing::SystemColors::WindowText;
+			this->new_input_label2->Location = System::Drawing::Point(16, 71);
 			this->new_input_label2->Name = L"new_input_label2";
-			this->new_input_label2->Size = System::Drawing::Size(140, 13);
+			this->new_input_label2->Size = System::Drawing::Size(205, 19);
 			this->new_input_label2->TabIndex = 1;
 			this->new_input_label2->Text = L"Enter name of the new word";
 			// 
 			// new_word_textBox
 			// 
-			this->new_word_textBox->Location = System::Drawing::Point(201, 69);
+			this->new_word_textBox->BackColor = System::Drawing::Color::PaleTurquoise;
+			this->new_word_textBox->Location = System::Drawing::Point(227, 72);
 			this->new_word_textBox->Name = L"new_word_textBox";
-			this->new_word_textBox->Size = System::Drawing::Size(100, 20);
+			this->new_word_textBox->Size = System::Drawing::Size(122, 20);
 			this->new_word_textBox->TabIndex = 2;
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(109, 125);
+			this->button1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"button1.BackgroundImage")));
+			this->button1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->button1->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->button1->Location = System::Drawing::Point(103, 125);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(154, 31);
+			this->button1->Size = System::Drawing::Size(166, 31);
 			this->button1->TabIndex = 3;
-			this->button1->Text = L"Record 20 utterances";
+			this->button1->Text = L"Record 30 utterances";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &Livetraining::button1_Click);
 			// 
 			// utterance_count_label
 			// 
 			this->utterance_count_label->AutoSize = true;
-			this->utterance_count_label->Location = System::Drawing::Point(106, 175);
+			this->utterance_count_label->BackColor = System::Drawing::Color::Transparent;
+			this->utterance_count_label->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->utterance_count_label->Location = System::Drawing::Point(82, 172);
 			this->utterance_count_label->Name = L"utterance_count_label";
-			this->utterance_count_label->Size = System::Drawing::Size(137, 13);
+			this->utterance_count_label->Size = System::Drawing::Size(193, 19);
 			this->utterance_count_label->TabIndex = 4;
 			this->utterance_count_label->Text = L"No of recorded utterences: ";
 			// 
 			// count_label
 			// 
 			this->count_label->AutoSize = true;
-			this->count_label->Location = System::Drawing::Point(243, 175);
+			this->count_label->BackColor = System::Drawing::Color::Transparent;
+			this->count_label->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->count_label->Location = System::Drawing::Point(264, 172);
 			this->count_label->Name = L"count_label";
-			this->count_label->Size = System::Drawing::Size(13, 13);
+			this->count_label->Size = System::Drawing::Size(17, 19);
 			this->count_label->TabIndex = 5;
 			this->count_label->Text = L"0";
 			// 
 			// train_hmm
 			// 
-			this->train_hmm->Location = System::Drawing::Point(79, 207);
+			this->train_hmm->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"train_hmm.BackgroundImage")));
+			this->train_hmm->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->train_hmm->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->train_hmm->Location = System::Drawing::Point(66, 208);
 			this->train_hmm->Name = L"train_hmm";
-			this->train_hmm->Size = System::Drawing::Size(205, 23);
+			this->train_hmm->Size = System::Drawing::Size(251, 32);
 			this->train_hmm->TabIndex = 6;
 			this->train_hmm->Text = L"Train model with newly added word";
 			this->train_hmm->UseVisualStyleBackColor = true;
@@ -152,25 +176,29 @@ namespace Speech_Therapy_App {
 			// 
 			// progressBar1
 			// 
-			this->progressBar1->Location = System::Drawing::Point(91, 295);
+			this->progressBar1->Location = System::Drawing::Point(20, 306);
 			this->progressBar1->Name = L"progressBar1";
-			this->progressBar1->Size = System::Drawing::Size(183, 23);
+			this->progressBar1->Size = System::Drawing::Size(329, 23);
 			this->progressBar1->TabIndex = 8;
 			this->progressBar1->Click += gcnew System::EventHandler(this, &Livetraining::progressBar1_Click);
 			// 
 			// training_warning_label
 			// 
 			this->training_warning_label->AutoSize = true;
-			this->training_warning_label->Location = System::Drawing::Point(44, 254);
+			this->training_warning_label->BackColor = System::Drawing::Color::Transparent;
+			this->training_warning_label->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->training_warning_label->ForeColor = System::Drawing::Color::Firebrick;
+			this->training_warning_label->Location = System::Drawing::Point(40, 262);
 			this->training_warning_label->Name = L"training_warning_label";
-			this->training_warning_label->Size = System::Drawing::Size(42, 13);
+			this->training_warning_label->Size = System::Drawing::Size(0, 17);
 			this->training_warning_label->TabIndex = 9;
-			this->training_warning_label->Text = L"Dummy";
 			// 
 			// Livetraining
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"$this.BackgroundImage")));
 			this->ClientSize = System::Drawing::Size(375, 353);
 			this->Controls->Add(this->training_warning_label);
 			this->Controls->Add(this->progressBar1);
@@ -184,6 +212,7 @@ namespace Speech_Therapy_App {
 			this->Controls->Add(this->new_word_label2);
 			this->Name = L"Livetraining";
 			this->Text = L"Livetraining";
+			this->Load += gcnew System::EventHandler(this, &Livetraining::Livetraining_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -230,6 +259,8 @@ private: System::Void train_hmm_Click(System::Object^  sender, System::EventArgs
 				this->progressBar1->Increment(54);
 			}
 
+		 }
+private: System::Void Livetraining_Load(System::Object^  sender, System::EventArgs^  e) {
 		 }
 };
 }

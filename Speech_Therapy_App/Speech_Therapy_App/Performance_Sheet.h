@@ -81,9 +81,12 @@ namespace Speech_Therapy_App {
 			// performance_label
 			// 
 			this->performance_label->AutoSize = true;
-			this->performance_label->Location = System::Drawing::Point(159, 9);
+			this->performance_label->BackColor = System::Drawing::Color::Transparent;
+			this->performance_label->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->performance_label->Location = System::Drawing::Point(152, 6);
 			this->performance_label->Name = L"performance_label";
-			this->performance_label->Size = System::Drawing::Size(98, 13);
+			this->performance_label->Size = System::Drawing::Size(159, 23);
 			this->performance_label->TabIndex = 0;
 			this->performance_label->Text = L"Performance Sheet";
 			// 
@@ -93,13 +96,13 @@ namespace Speech_Therapy_App {
 			this->chart1->ChartAreas->Add(chartArea1);
 			legend1->Name = L"Legend1";
 			this->chart1->Legends->Add(legend1);
-			this->chart1->Location = System::Drawing::Point(-4, 25);
+			this->chart1->Location = System::Drawing::Point(-3, 35);
 			this->chart1->Name = L"chart1";
 			series1->ChartArea = L"ChartArea1";
 			series1->Legend = L"Legend1";
 			series1->Name = L"Series1";
 			this->chart1->Series->Add(series1);
-			this->chart1->Size = System::Drawing::Size(445, 329);
+			this->chart1->Size = System::Drawing::Size(445, 333);
 			this->chart1->TabIndex = 1;
 			this->chart1->Text = L"chart1";
 			this->chart1->Click += gcnew System::EventHandler(this, &Performance_Sheet::chart1_Click);
@@ -118,7 +121,7 @@ namespace Speech_Therapy_App {
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ControlLightLight;
-			this->ClientSize = System::Drawing::Size(441, 348);
+			this->ClientSize = System::Drawing::Size(441, 370);
 			this->Controls->Add(this->chart1);
 			this->Controls->Add(this->performance_label);
 			this->Controls->Add(this->data_passing_label);
