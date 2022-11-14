@@ -138,23 +138,22 @@ void readWords() {
         count++;
     }
 
-    noOfWords = count;
-    curNumberOfWords = count;
+    noOfWords = count - 1;
+    curNumberOfWords = count - 1;
 
     fclose(wordFile);
 
     FILE* probFile = fopen("files/standard_word_prob.txt", "r");
     int i = 0;
 
-    while (!feof(probFile) && i < count) {
-        fscanf(probFile, "%LF", &standardProbabilities[i]);
+    while (!feof(probFile) && i < noOfWords) {
+        fscanf(probFile, "%Lf", &standardProbabilities[i]);
         i++;
     }
 
     fclose(probFile);
 
 }
-
 
 /**
  * Tokhura distance between the code book vector and the vector from universe
@@ -384,7 +383,6 @@ void generateUniverse()
 		{
 			// File name format: ST_DataSet/utterance_1_1.txt
 			sprintf(inputFile, "ST_DataSet/utterance_%d_%d.txt", word, utterance);
-			// printf("\nFilename: %s", inputFile);
 
 			readInputFile(inputFile);
 			// applyDCShift();
@@ -1203,7 +1201,6 @@ void readAveragedModel(int word, int iteration)
             for (j = 1; j <= M; j++)
             {
                 fscanf(fptr2, "%Lf", &data);
-                // printf("\nReading the data %e  ", data);
                 B[i][j] += data;
             }
         }
@@ -1340,15 +1337,16 @@ void trainHMM()
 			fclose(aModelFp);
 			fclose(bModelFp);
 
-            fprintf(standardProbFile, "%e\n", highestProb);
-
-            standardProbabilities[word - 1] = highestProb;
 
         }
+        fprintf(standardProbFile, "%e\n", highestProb);
+
+        standardProbabilities[word - 1] = highestProb;
         dumpFinalModel(word);
 
-        fclose(standardProbFile);
     }
+    
+    fclose(standardProbFile);
 }
 
 /**
@@ -1380,21 +1378,21 @@ void readFinalModel(int word)
 
 
 void calculateRangePerc() {
-    if (tempPercentage > 1e-300) {
+    if (tempPercentage < 1e-300) {
         percentage = rand() % 10 + 20;
-    } else if (tempPercentage > 1e-260 && tempPercentage < 1e-300) {
+    } else if (tempPercentage < 1e-260 && tempPercentage > 1e-300) {
         percentage = rand() % 10 + 30;
-    } else if (tempPercentage > 1e-220 && tempPercentage < 1e-260) {
+    } else if (tempPercentage < 1e-220 && tempPercentage > 1e-260) {
         percentage = rand() % 10 + 40;
-    } else if (tempPercentage > 1e-180 && tempPercentage < 1e-220) {
+    } else if (tempPercentage < 1e-180 && tempPercentage > 1e-220) {
         percentage = rand() % 10 + 50;
-    } else if (tempPercentage > 1e-160 && tempPercentage < 1e-180) {
+    } else if (tempPercentage < 1e-160 && tempPercentage > 1e-180) {
         percentage = rand() % 10 + 60;
-    } else if (tempPercentage > 1e-140 && tempPercentage < 1e-160) {
+    } else if (tempPercentage < 1e-140 && tempPercentage > 1e-160) {
         percentage = rand() % 10 + 70;
-    } else if (tempPercentage > 1e-130 && tempPercentage < 1e-140) {
+    } else if (tempPercentage < 1e-130 && tempPercentage > 1e-140) {
         percentage = rand() % 10 + 80;
-    } else if (tempPercentage > 0 && tempPercentage < 1e-130) {
+    } else if (tempPercentage > 1e-130) {
         percentage = rand() % 10 + 90;
     } else {
         percentage = 10;
@@ -1437,7 +1435,7 @@ int testingFile()
     }
     printf("\nThe recongnised word = %d\n", recognisedWordIndex);
 
-    tempPercentage = maxRecognisedProb / standardProbabilities[recognisedWordIndex - 1] * 100;
+    tempPercentage = maxRecognisedProb / standardProbabilities[recognisedWordIndex - 1];
 
     calculateRangePerc();
 
@@ -1562,12 +1560,9 @@ void dumpLiveDataForRecords() {
 
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-    printf("%d-%02d-%02d %02d:%02d:%02d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
     sprintf(timeStamp, "%d-%02d-%02d %02d-%02d-%02d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 
     sprintf(recordFilePath, "%s/%s.txt", dirPath, timeStamp);
-
-    printf("\nFilePath = %s", recordFilePath);
 
     FILE* recordFilePtr = fopen(recordFilePath, "w");
     FILE* liveFilePtr = fopen("files/liveTesting/livetesting1.txt", "r");
@@ -1591,17 +1586,11 @@ void dumpLiveDataForRecords() {
 }
 
 
-void testPrint() {
-    printf("\nTesting done!\n");
-}
-
-
-
 // ---------------------------------------- Live training modules ----------------------------------------
 
 void appendNewWord(char* newWord) {
     FILE* wordFilePtr = fopen("files/words.txt", "a");
-    fprintf(wordFilePtr, "\n%s", newWord);
+    fprintf(wordFilePtr, "%s\n", newWord);
     fclose(wordFilePtr);
 }
 
@@ -1653,12 +1642,6 @@ int console_main()
     // testHMM();
 	// 	// Reads the final codebook into the codebook array
     // readCodeBook();
-
-	// sprintf(inputFile, "files/input/test3.txt");
-
-	// printf("\nFilename : %s\n", inputFile);
-
-	testingFile();
 
     // Live testing for the data
     // liveTesting();

@@ -244,7 +244,9 @@ private: System::Void train_hmm_Click(System::Object^  sender, System::EventArgs
 
 				this->progressBar1->Increment(5);
 
-				generateCodeBook();
+				readWords();
+
+				generateUniverse();
 
 				this->progressBar1->Increment(10);
 
