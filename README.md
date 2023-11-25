@@ -15,9 +15,15 @@ The basic requirements to develop this project are as follows:-
 - Cool Edit 2000
 
 ## Sample user experience
-
+- Home page
+![Home page](https://github.com/kaushalmistry/Speech_Therapy_Project/blob/main/Images/home_page.png)
+- Performance over time
+![Chart](https://github.com/kaushalmistry/Speech_Therapy_Project/blob/main/Images/chart_page.png)
+- Adding new work on the fly
+![Training](https://github.com/kaushalmistry/Speech_Therapy_Project/blob/main/Images/training_page.png)
 
 ## See it working
+
 
 
 ---------------------------------------------------------------------------------------------------
